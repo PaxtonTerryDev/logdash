@@ -1,0 +1,17 @@
+export enum LogLevel {
+  DEBUG = 0,
+  TRACE = 1,
+  INFO = 2,
+  WARN = 3,
+  ERROR = 4,
+
+}
+
+export enum LogSegment {
+  TIMESTAMP,
+  LEVEL,
+  MESSAGE,
+  METADATA,
+}
+
+export class Log {}
