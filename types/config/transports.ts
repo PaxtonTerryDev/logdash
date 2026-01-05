@@ -14,10 +14,10 @@ interface TransportConfig {
 }
 
 interface StdoutTransportConfig extends TransportConfig {
-  colors: Record<
-    Partial<LogLevel>,
-    Record<Partial<LogSegment>, Partial<CSS.Properties>>
-  >;
+  colors?: Partial<Record<
+    LogLevel,
+    Partial<Record<LogSegment, CSS.Properties>>
+  >>;
 }
 
 const defaultStdoutTransportConfig: Required<StdoutTransportConfig> = {
