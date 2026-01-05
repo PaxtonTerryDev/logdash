@@ -4,7 +4,7 @@ export enum LogLevel {
   INFO = 2,
   WARN = 3,
   ERROR = 4,
-
+  FATAL = 5,
 }
 
 export enum LogSegment {
