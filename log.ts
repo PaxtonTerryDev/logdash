@@ -14,4 +14,13 @@ export enum LogSegment {
   METADATA,
 }
 
+interface LogProps {
+  level: LogLevel;
+  timestamp?: Date;
+  message: string;
+  metadata: unknown;
+}
+
 export class Log {}
+
+
