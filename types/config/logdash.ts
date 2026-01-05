@@ -1,3 +1,5 @@
+import { defaultTransportConfig, LogDashTransportsConfig } from "./transports.ts";
+
 type EnvSpecifier = string;
 
 type LogDashConfigRootDef = Record<EnvSpecifier, LogDashConfig>;
@@ -8,14 +10,16 @@ type DefaultLogDashConfigRootDef = Record<
 >;
 
 interface LogDashConfig {
-  forceInline?: boolean;
+ forceInline?: boolean;
+ transports?: LogDashTransportsConfig;
 }
 
 const defaultCfg: Required<LogDashConfig> = {
   forceInline: false,
+  transports: defaultTransportConfig,
 };
 
-const defaultRootCfg: DefaultLogDashConfigRootDef = {
+export const defaultRootCfg: DefaultLogDashConfigRootDef = {
   development: defaultCfg,
   staging: defaultCfg,
   production: defaultCfg,
