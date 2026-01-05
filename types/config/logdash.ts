@@ -1,15 +1,15 @@
 import { defaultTransportConfig, LogDashTransportsConfig } from "./transports.ts";
 
-type EnvSpecifier = string;
+export type EnvSpecifier = string;
 
-type LogDashConfigRootDef = Record<EnvSpecifier, LogDashConfig>;
+export type LogDashConfigRootDef = Record<EnvSpecifier, LogDashConfig>;
 
 type DefaultLogDashConfigRootDef = Record<
   EnvSpecifier,
   Required<LogDashConfig>
 >;
 
-interface LogDashConfig {
+export interface LogDashConfig {
  forceInline?: boolean;
  transports?: LogDashTransportsConfig;
 }
