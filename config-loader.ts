@@ -1,27 +1,5 @@
-import { ConfigValidationError } from "./errors.ts";
-import { LogTransports } from "./transports.ts";
 import { defaultRootCfg, type LogDashConfigRootDef } from "./types/config/logdash.ts";
 import { join } from "jsr:@std/path";
-
-export class JSONConfigLoader<T> {
-  public load(cfgPath: string, validator?: (cfg: T) => void): T {
-    const buf = Deno.readFileSync(cfgPath);
-    const str = new TextDecoder().decode(buf);
-    const cfg = JSON.parse(str);
-
-    if (validator) {
-      try {
-        validator(cfg);
-      } catch (error) {
-        throw new ConfigValidationError(
-          "Provided config failed validation",
-          error as Error,
-        );
-      }
-    }
-    return cfg as T;
-  }
-}
 
 function deepMerge<T extends Record<string, unknown>>(target: T, source: Partial<T>): T {
   const result = { ...target };
@@ -41,14 +19,21 @@ function deepMerge<T extends Record<string, unknown>>(target: T, source: Partial
   return result;
 }
 
-export async function loadConfig(configPath?: string): Promise<LogDashConfigRootDef> {
+export function createLogger(config?: Partial<LogDashConfigRootDef>): LogDashConfigRootDef {
+  if (!config) {
+    return defaultRootCfg;
+  }
+  return deepMerge(defaultRootCfg, config);
+}
+
+export async function loadConfigFromFile(configPath?: string): Promise<LogDashConfigRootDef> {
   const configFile = configPath || join(Deno.cwd(), "logdash.config.ts");
 
   try {
     const module = await import(configFile);
     const userConfig = module.default as Partial<LogDashConfigRootDef>;
 
-    return deepMerge(defaultRootCfg, userConfig);
+    return createLogger(userConfig);
   } catch (error) {
     if (error instanceof Error && error.message.includes("Cannot resolve")) {
       return defaultRootCfg;
