@@ -26,14 +26,10 @@ const logger = createLogger(
         [LogTransports.STDOUT]: {
           enabled: false,
         },
-        [LogTransports.FILE]: {
-          enabled: true,
-          splitMethod: "date",
-          schedule: "0 0 * * *",
-        },
+        
       },
     },
   } satisfies LogDashConfigRootDef,
 );
 
-console.log("Logger initialized:", logger.development.transports);
+export default logger;

@@ -1,3 +1,5 @@
+import { LogDashConfigRootDef } from "./types/config/logdash.ts";
+
 export enum LogLevel {
   DEBUG = 0,
   TRACE = 1,
@@ -22,6 +24,12 @@ interface LogProps {
   metadata: unknown;
 }
 
-export class Log {}
+export class Log {
+  config: LogDashConfigRootDef;
+
+  constructor(config: LogDashConfigRootDef) {
+    this.config = config;
+  }
+}
 
 
