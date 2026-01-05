@@ -1,4 +1,4 @@
-import { Log } from "./log.ts";
+import { Logger } from "./log.ts";
 import { defaultRootCfg, type LogDashConfigRootDef } from "./types/config/logdash.ts";
 import { join } from "jsr:@std/path";
 
@@ -20,14 +20,14 @@ function deepMerge<T extends Record<string, unknown>>(target: T, source: Partial
   return result;
 }
 
-export function createLogger(config?: Partial<LogDashConfigRootDef>): Log {
+export function createLogger(config?: Partial<LogDashConfigRootDef>): Logger {
   if (!config) {
-    return new Log(defaultRootCfg);
+    return new Logger(defaultRootCfg);
   }
-  return new Log(deepMerge(defaultRootCfg, config));
+  return new Logger(deepMerge(defaultRootCfg, config));
 }
 
-export async function loadConfigFromFile(configPath?: string): Promise<Log> {
+export async function loadConfigFromFile(configPath?: string): Promise<Logger> {
   const configFile = configPath || join(Deno.cwd(), "logdash.config.ts");
 
   try {
@@ -37,7 +37,7 @@ export async function loadConfigFromFile(configPath?: string): Promise<Log> {
     return createLogger(userConfig);
   } catch (error) {
     if (error instanceof Error && error.message.includes("Cannot resolve")) {
-      return new Log(defaultRootCfg)
+      return new Logger(defaultRootCfg)
     }
     throw error;
   }

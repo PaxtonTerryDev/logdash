@@ -24,7 +24,7 @@ interface LogProps {
   metadata: unknown;
 }
 
-export class Log {
+export class Logger {
   config: LogDashConfigRootDef;
 
   constructor(config: LogDashConfigRootDef) {
