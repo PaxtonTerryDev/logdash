@@ -1,10 +1,11 @@
 import type { LogDashConfigRootDef } from "./types/config/logdash.ts";
 import { LogLevel, LogSegment } from "./log.ts";
+import { LogTransports } from "./transports.ts";
 
 export default {
   development: {
     transports: {
-      stdout: {
+      [LogTransports.STDOUT]: {
         enabled: true,
         colors: {
           [LogLevel.INFO]: {
@@ -17,7 +18,7 @@ export default {
   production: {
     forceInline: true,
     transports: {
-      stdout: {
+      [LogTransports.STDOUT]: {
         enabled: false,
       },
       file: {

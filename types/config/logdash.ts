@@ -4,7 +4,7 @@ export type EnvSpecifier = string;
 
 export type LogDashConfigRootDef = Record<EnvSpecifier, LogDashConfig>;
 
-type DefaultLogDashConfigRootDef = Record<
+export type DefaultLogDashConfigRootDef = Record<
   EnvSpecifier,
   Required<LogDashConfig>
 >;

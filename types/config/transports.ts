@@ -10,14 +10,16 @@ export interface LogDashTransportsConfig {
 
 interface TransportConfig {
   enabled: boolean;
-  output?: Record<Partial<LogSegment>, boolean>;
+  output?: Record<LogSegment, boolean>;
 }
 
 interface StdoutTransportConfig extends TransportConfig {
-  colors?: Partial<Record<
-    LogLevel,
-    Partial<Record<LogSegment, CSS.Properties>>
-  >>;
+  colors?: Partial<
+    Record<
+      LogLevel,
+      Partial<Record<LogSegment, CSS.Properties>>
+    >
+  >;
 }
 
 const defaultStdoutTransportConfig: Required<StdoutTransportConfig> = {
