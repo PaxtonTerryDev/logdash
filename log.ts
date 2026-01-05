@@ -10,6 +10,7 @@ export enum LogLevel {
 export enum LogSegment {
   TIMESTAMP,
   LEVEL,
+  PREFIX,
   MESSAGE,
   METADATA,
 }
