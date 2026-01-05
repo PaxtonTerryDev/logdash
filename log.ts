@@ -17,9 +17,9 @@ export enum LogSegment {
   METADATA,
 }
 
-interface LogProps {
+interface Log {
   level: LogLevel;
-  timestamp?: Date;
+  timestamp: Date;
   message: string;
   metadata: unknown;
 }
@@ -30,6 +30,8 @@ export class Logger {
   constructor(config: LogDashConfigRootDef) {
     this.config = config;
   }
+
+
 }
 
 
