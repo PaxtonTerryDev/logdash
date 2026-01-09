@@ -27,6 +27,7 @@ export function createLogger(config?: Partial<LogDashConfigRootDef>): Logger {
   return new Logger(deepMerge(defaultRootCfg, config));
 }
 
+// WARN: Currently deprecated - not supporting defined file configs
 export async function loadConfigFromFile(configPath?: string): Promise<Logger> {
   const configFile = configPath || join(Deno.cwd(), "logdash.config.ts");
 
