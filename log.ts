@@ -1,4 +1,5 @@
-import { LogDashConfigRootDef } from "./types/config/logdash.ts";
+import { deepMerge } from "./lib/utils/deep-merge.ts";
+import { defaultRootCfg, LogDashConfigRootDef } from "./types/config/logdash.ts";
 
 export enum LogLevel {
   DEBUG = 0,
@@ -17,18 +18,25 @@ export enum LogSegment {
   METADATA,
 }
 
-interface Log {
+interface Log<T> {
+  id: string;
   level: LogLevel;
   timestamp: Date;
+  identifiers: string[];
   message: string;
-  metadata: unknown;
+  metadata: T;
 }
 
 export class Logger {
-  config: LogDashConfigRootDef;
+  private config: LogDashConfigRootDef
 
-  constructor(config: LogDashConfigRootDef) {
-    this.config = config;
+  constructor(config?: Partial<LogDashConfigRootDef>) {
+    this.config = this.createLoggerConfig(config)
+  }
+
+  private createLoggerConfig(config?: Partial<LogDashConfigRootDef>) {
+    if (!config) return defaultRootCfg;
+  return deepMerge(defaultRootCfg, config);
   }
 
 
