@@ -10,7 +10,8 @@ export interface LogDashTransportsConfig {
 
 interface TransportConfig {
   enabled: boolean;
-  output?: Record<LogSegment, boolean>;
+  levels?: Record<LogLevel, boolean>;
+  segments?: Record<LogSegment, boolean>;
 }
 
 interface StdoutTransportConfig extends TransportConfig {
@@ -68,7 +69,15 @@ const defaultStdoutTransportConfig: Required<StdoutTransportConfig> = {
       [LogSegment.METADATA]: {},
     },
   },
-  output: {
+  levels: {
+    [LogLevel.DEBUG]: true,
+    [LogLevel.TRACE]: true,
+    [LogLevel.INFO]: true,
+    [LogLevel.WARN]: true,
+    [LogLevel.ERROR]: true,
+    [LogLevel.FATAL]: true,
+  },
+  segments: {
     [LogSegment.TIMESTAMP]: false,
     [LogSegment.LEVEL]: true,
     [LogSegment.PREFIX]: true,
@@ -125,12 +134,20 @@ type FileTransportConfig =
 
 const defaultFileTransportConfig: Required<FileTransportConfig> = {
   enabled: false,
-  output: {
+  segments: {
     [LogSegment.TIMESTAMP]: true,
     [LogSegment.LEVEL]: true,
     [LogSegment.PREFIX]: true,
     [LogSegment.MESSAGE]: true,
     [LogSegment.METADATA]: false,
+  },
+  levels: {
+    [LogLevel.DEBUG]: true,
+    [LogLevel.TRACE]: true,
+    [LogLevel.INFO]: true,
+    [LogLevel.WARN]: true,
+    [LogLevel.ERROR]: true,
+    [LogLevel.FATAL]: true,
   },
   outdir: "logs/",
   splitMethod: "date",
@@ -145,12 +162,20 @@ interface JSONTransportConfig extends TransportConfig {
 
 const defaultJSONTransportConfig: Required<JSONTransportConfig> = {
   enabled: false,
-  output: {
+  segments: {
     [LogSegment.TIMESTAMP]: true,
     [LogSegment.LEVEL]: true,
     [LogSegment.PREFIX]: true,
     [LogSegment.MESSAGE]: true,
     [LogSegment.METADATA]: true,
+  },
+  levels: {
+    [LogLevel.DEBUG]: true,
+    [LogLevel.TRACE]: true,
+    [LogLevel.INFO]: true,
+    [LogLevel.WARN]: true,
+    [LogLevel.ERROR]: true,
+    [LogLevel.FATAL]: true,
   },
   endpoint: "",
   headers: [],
