@@ -9,13 +9,23 @@ export type DefaultLogDashConfigRootDef = Record<
   Required<LogDashConfig>
 >;
 
+interface SeparatorConfig {
+  enabled?: boolean;
+  value?: string;
+}
+
+const defaultSeparatorConfig: Required<SeparatorConfig> = {
+  enabled: true,
+  value: "\n"
+}
+
 export interface LogDashConfig {
- forceInline?: boolean;
+  separator?: SeparatorConfig;
  transports?: LogDashTransportsConfig;
 }
 
 const defaultCfg: Required<LogDashConfig> = {
-  forceInline: false,
+  separator: defaultSeparatorConfig,
   transports: defaultTransportConfig,
 };
 

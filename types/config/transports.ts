@@ -21,10 +21,12 @@ interface StdoutTransportConfig extends TransportConfig {
       Partial<Record<LogSegment, CSS.Properties>>
     >
   >;
+  formatting?: "oneline" | "pretty" | "none";
 }
 
 const defaultStdoutTransportConfig: Required<StdoutTransportConfig> = {
   enabled: true,
+  formatting: "pretty",
   colors: {
     [LogLevel.DEBUG]: {
       [LogSegment.TIMESTAMP]: {},
@@ -71,8 +73,7 @@ const defaultStdoutTransportConfig: Required<StdoutTransportConfig> = {
   },
   levels: {
     [LogLevel.DEBUG]: true,
-    [LogLevel.TRACE]: true,
-    [LogLevel.INFO]: true,
+    [LogLevel.TRACE]: true, [LogLevel.INFO]: true,
     [LogLevel.WARN]: true,
     [LogLevel.ERROR]: true,
     [LogLevel.FATAL]: true,
@@ -155,12 +156,14 @@ const defaultFileTransportConfig: Required<FileTransportConfig> = {
 };
 
 interface JSONTransportConfig extends TransportConfig {
+  async: boolean;
   endpoint: string;
   headers: [string, string][];
   body: [string, string][];
 }
 
 const defaultJSONTransportConfig: Required<JSONTransportConfig> = {
+  async: true,
   enabled: false,
   segments: {
     [LogSegment.TIMESTAMP]: true,
